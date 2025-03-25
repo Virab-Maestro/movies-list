@@ -8,7 +8,6 @@ export const useMoviesStore = defineStore('movies', () => {
     try{
       const rs = await axios.get("https://mashroom-movies-api.netlify.app/api/movies");
       moviesList.value = rs.data.data;
-      console.log(moviesList.value);
     }catch(err){
       console.log("ERR(getMovies): ", err);
     }
