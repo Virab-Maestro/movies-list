@@ -1,1 +1,7 @@
-@import './base.css';
+@import './base.scss';
+
+.container {
+  max-width: 1430px;
+  margin: 40px auto 0;
+  padding: 0 15px;
+}
