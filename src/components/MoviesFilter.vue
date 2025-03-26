@@ -16,16 +16,26 @@
 <script setup>
 import {ref} from "vue";
 
+const emits = defineEmits(["filter"]);
+
 const byTitle = ref(),
   byYear = ref();
 
 function onByTitle() {
-  if(byYear.value) byYear.value = false;
-  //filter
+  if(byTitle.value) {
+    byYear.value = false;
+    emits("filter", "title")
+  }else {
+    emits("filter", null)
+  }
 }
 function onByYear() {
-  if(byTitle.value) byTitle.value = false;
-  //filter
+  if(byYear.value) {
+    byTitle.value = false;
+    emits("filter", "year")
+  }else {
+    emits("filter", null)
+  }
 }
 </script>
 
@@ -33,6 +43,7 @@ function onByYear() {
 .filter{
   position: relative;
   padding: 16px 0;
+  margin-bottom: 40px;
   display: flex;
   align-items: center;
   gap: 32px;

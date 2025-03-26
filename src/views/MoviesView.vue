@@ -1,19 +1,44 @@
 <template>
   <h2 class="movies-title">Фильмы</h2>
-  <movies-filter/>
+  <movies-filter @filter="filterMovies"/>
+
+  <div class="movies-list">
+    <movies-item v-for="(movie, i) in moviesFiltered" :key="i" v-bind="movie" />
+  </div>
 <!--  loader instead of list-->
 </template>
 
 <script setup>
-import {onMounted} from "vue";
+import { ref, onMounted } from "vue";
 import MoviesFilter from "@/components/MoviesFilter.vue";
+import MoviesItem from "@/components/MoviesItem.vue";
 import {useMoviesStore} from "@/stores/moviesStore.js";
 
 const moviesStore = useMoviesStore();
 
-onMounted(() => {
-  moviesStore.getMovies();
+const moviesFiltered = ref([]);
+onMounted(async () => {
+  await moviesStore.getMovies();
+  moviesFiltered.value = moviesStore.moviesList;
 })
+
+function filterMovies(t) {
+  if(t === "title") {
+    moviesFiltered.value = [ ...moviesStore.moviesList ].sort((a, b) => {
+      if(a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+      if(a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+      return 0;
+    });
+  }else if(t === "year") {
+    moviesFiltered.value = [ ...moviesStore.moviesList ].sort((a, b) => {
+      if(a.year < b.year) return -1;
+      if(a.year > b.year) return 1;
+      return 0;
+    });
+  }else {
+    moviesFiltered.value = moviesStore.moviesList;
+  }
+}
 </script>
 
 <style scoped lang="scss">
