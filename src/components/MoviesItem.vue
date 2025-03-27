@@ -5,7 +5,7 @@
     </div>
 
     <div class="movie-info">
-      <a class="movie-info__title" href="#">{{ title }}</a>
+      <router-link class="movie-info__title" :to="{ name: 'movie', params: { id } }">{{ title }}</router-link>
       <p class="movie-info__details">{{ year }}, {{ genres !== null ? genres.join(', ') : '' }}</p>
       <p class="movie-info__details">режиссёр: {{ directors !== null ? directors.join(', ') : '' }}</p>
       <p class="movie-info__actors"><span class="movie-info__details">актёры:</span> {{ actors !== null ? actors.join(', ') : '' }}</p>

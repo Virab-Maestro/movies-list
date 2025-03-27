@@ -2,10 +2,11 @@
   <h2 class="movies-title">Фильмы</h2>
   <movies-filter @filter="filterMovies"/>
 
-  <div class="movies-list">
+  <div class="movies-list" v-if="!moviesStore.isLoading">
     <movies-item v-for="(movie, i) in moviesFiltered" :key="i" v-bind="movie" />
   </div>
-<!--  loader instead of list-->
+
+  <img class="movies-preloader" v-else src="../assets/img/loader.svg" alt="preloader" />
 </template>
 
 <script setup>
@@ -14,9 +15,9 @@ import MoviesFilter from "@/components/MoviesFilter.vue";
 import MoviesItem from "@/components/MoviesItem.vue";
 import {useMoviesStore} from "@/stores/moviesStore.js";
 
-const moviesStore = useMoviesStore();
+const moviesStore = useMoviesStore(),
+  moviesFiltered = ref([]);
 
-const moviesFiltered = ref([]);
 onMounted(async () => {
   await moviesStore.getMovies();
   moviesFiltered.value = moviesStore.moviesList;
@@ -47,6 +48,13 @@ function filterMovies(t) {
     font-size: 32px;
     line-height: 32px;
     font-weight: 500;
+  }
+
+  &-preloader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 </style>
