@@ -6,9 +6,9 @@
 
     <div class="movie-info">
       <router-link class="movie-info__title" :to="{ name: 'movie', params: { id } }">{{ title }}</router-link>
-      <p class="movie-info__details">{{ year }}, {{ genres !== null ? genres.join(', ') : '' }}</p>
-      <p class="movie-info__details">режиссёр: {{ directors !== null ? directors.join(', ') : '' }}</p>
-      <p class="movie-info__actors"><span class="movie-info__details">актёры:</span> {{ actors !== null ? actors.join(', ') : '' }}</p>
+      <p class="movie-info__details">{{ year }}, {{ !!genres  ? genres.join(', ') : '' }}</p>
+      <p class="movie-info__details">режиссёр: {{ !!directors ? directors.join(', ') : '' }}</p>
+      <p class="movie-info__actors"><span class="movie-info__details">актёры:</span> {{ !!actors ? actors.join(', ') : '' }}</p>
       <p class="movie-info__desc" v-if="!!description">{{ description }}</p>
     </div>
   </div>
@@ -17,7 +17,7 @@
 <script setup>
 
 const props = defineProps({
-  id: String,
+  id: Number,
   title: String,
   description: String,
   year: Number,
@@ -36,11 +36,6 @@ const props = defineProps({
   background-color: #4D4747;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   transition: all .5s ease;
-
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.35);
-  }
 }
 
 .movie-poster {

@@ -2,7 +2,7 @@
   <h2 class="movies-title">Фильмы</h2>
   <movies-filter @filter="filterMovies"/>
 
-  <div class="movies-list" v-if="!moviesStore.isLoading">
+  <div class="movies-list" v-if="!moviesStore.isLoadingMovies">
     <movies-item v-for="(movie, i) in moviesFiltered" :key="i" v-bind="movie" />
   </div>
 
@@ -55,6 +55,13 @@ function filterMovies(t) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+}
+
+.movie-item {
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.35);
   }
 }
 </style>
