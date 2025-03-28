@@ -1,21 +1,24 @@
 <template>
   <div class="movie-item">
+    <!--    movie's cover-->
     <div class="movie-poster">
       <img class="movie-poster__img" :src="poster" alt="movie-poster">
     </div>
 
+    <!--    movie's info-->
     <div class="movie-info">
       <router-link class="movie-info__title" :to="{ name: 'movie', params: { id } }">{{ title }}</router-link>
       <p class="movie-info__details">{{ year }}, {{ !!genres  ? genres.join(', ') : '' }}</p>
       <p class="movie-info__details">режиссёр: {{ !!directors ? directors.join(', ') : '' }}</p>
       <p class="movie-info__actors"><span class="movie-info__details">актёры:</span> {{ !!actors ? actors.join(', ') : '' }}</p>
       <p class="movie-info__desc" v-if="!!description">{{ description }}</p>
+
+<!--      <div v-if="!!videocdn.duration" class="movie-info__duration">{{ videocdn.duration }}</div>-->
     </div>
   </div>
 </template>
 
 <script setup>
-
 const props = defineProps({
   id: Number,
   title: String,
@@ -25,13 +28,13 @@ const props = defineProps({
   actors: Array,
   genres: Array,
   directors: Array,
+  videocdn: Object,
 });
 </script>
 
 <style scoped lang="scss">
 .movie-item {
   display: flex;
-  gap: 24px;
   margin-bottom: 28px;
   background-color: #4D4747;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -94,5 +97,10 @@ const props = defineProps({
     font-weight: 400;
   }
 
+  &__duration {
+    position: absolute;
+    top: 32px;
+    right: 0;
+  }
 }
 </style>

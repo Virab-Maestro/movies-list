@@ -1,11 +1,12 @@
 <template>
   <div class="filter">
+    <!--    filter by movies title-->
     <div class="filter-item">
       <input id="by-title" class="filter-input" type="checkbox" v-model="byTitle" @change="onByTitle">
       <label class="filter-label" for="by-title">Отсортировать по названию</label>
     </div>
 
-
+    <!--    filter by movies year-->
     <div class="filter-item">
       <input id="by-year" class="filter-input" type="checkbox" v-model="byYear" @change="onByYear">
       <label class="filter-label" for="by-year">Отсортировать по году</label>
@@ -26,7 +27,7 @@ function onByTitle() {
     byYear.value = false;
     emits("filter", "title")
   }else {
-    emits("filter", null)
+    emits("filter", null) //clears the list when null
   }
 }
 function onByYear() {
@@ -34,7 +35,7 @@ function onByYear() {
     byTitle.value = false;
     emits("filter", "year")
   }else {
-    emits("filter", null)
+    emits("filter", null) //clears the list when null
   }
 }
 </script>

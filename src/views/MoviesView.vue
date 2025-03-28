@@ -1,11 +1,14 @@
 <template>
+  <!--  movies filter-->
   <h2 class="movies-title">Фильмы</h2>
   <movies-filter @filter="filterMovies"/>
 
+  <!--  movies list-->
   <div class="movies-list" v-if="!moviesStore.isLoadingMovies">
     <movies-item v-for="(movie, i) in moviesFiltered" :key="i" v-bind="movie" />
   </div>
 
+  <!--  movies preloader-->
   <img class="movies-preloader" v-else src="../assets/img/loader.svg" alt="preloader" />
 </template>
 
@@ -18,11 +21,13 @@ import {useMoviesStore} from "@/stores/moviesStore.js";
 const moviesStore = useMoviesStore(),
   moviesFiltered = ref([]);
 
+//fetch movies list from api when mounted
 onMounted(async () => {
   await moviesStore.getMovies();
   moviesFiltered.value = moviesStore.moviesList;
 })
 
+//emited movies filter fc
 function filterMovies(t) {
   if(t === "title") {
     moviesFiltered.value = [ ...moviesStore.moviesList ].sort((a, b) => {
