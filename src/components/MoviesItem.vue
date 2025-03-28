@@ -13,7 +13,11 @@
       <p class="movie-info__actors"><span class="movie-info__details">актёры:</span> {{ !!actors ? actors.join(', ') : '' }}</p>
       <p class="movie-info__desc" v-if="!!description">{{ description }}</p>
 
-<!--      <div v-if="!!videocdn.duration" class="movie-info__duration">{{ videocdn.duration }}</div>-->
+      <div v-if="!!collapse?.duration" class="movie-info__duration">
+        <div class="movie-info__duration-inner">
+          <span>{{ collapse.duration[0].replace('.', '') }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +32,7 @@ const props = defineProps({
   actors: Array,
   genres: Array,
   directors: Array,
-  videocdn: Object,
+  collapse: Object,
 });
 </script>
 
@@ -59,6 +63,7 @@ const props = defineProps({
 }
 
 .movie-info {
+  flex-grow: 1;
   position: relative;
   padding: 32px 32px 32px 24px;
 
@@ -101,6 +106,47 @@ const props = defineProps({
     position: absolute;
     top: 32px;
     right: 0;
+    background-color: #C4C4C4;
+
+    span {
+      position: relative;
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: 700;
+      color: #000;
+      text-transform: uppercase;
+      padding-right: 28px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 48%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 18px;
+        background-image: url("@/assets/img/movie.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+  }
+
+  &__duration-inner {
+    position: relative;
+    padding: 6px 28px 6px 18px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: -5px;
+      display: block;
+      width: 30px;
+      height: 45px;
+      background-color: #4D4747;
+      transform: rotate(11deg);
+    }
   }
 }
 </style>
